@@ -364,7 +364,9 @@ show_one(cpuinfo_min_freq, cpuinfo.min_freq);
 show_one(cpuinfo_max_freq, cpuinfo.max_freq);
 show_one(cpuinfo_transition_latency, cpuinfo.transition_latency);
 show_one(scaling_min_freq, min);
+show_one(scaling_min_suspend_freq, min_suspend);
 show_one(scaling_max_freq, max);
+show_one(scaling_max_suspend_freq, max_suspend);
 show_one(scaling_cur_freq, cur);
 
 static int __cpufreq_set_policy(struct cpufreq_policy *data,
@@ -395,7 +397,9 @@ static ssize_t store_##file_name					\
 }
 
 store_one(scaling_min_freq, min);
+store_one(scaling_min_suspend_freq, min_suspend);
 store_one(scaling_max_freq, max);
+store_one(scaling_max_suspend_freq, max_suspend);
 
 /**
  * show_cpuinfo_cur_freq - current CPU frequency as detected by hardware
@@ -664,7 +668,9 @@ cpufreq_freq_attr_ro(bios_limit);
 cpufreq_freq_attr_ro(related_cpus);
 cpufreq_freq_attr_ro(affected_cpus);
 cpufreq_freq_attr_rw(scaling_min_freq);
+cpufreq_freq_attr_rw(scaling_min_suspend_freq);
 cpufreq_freq_attr_rw(scaling_max_freq);
+cpufreq_freq_attr_rw(scaling_max_suspend_freq);
 cpufreq_freq_attr_rw(scaling_governor);
 cpufreq_freq_attr_rw(scaling_setspeed);
 cpufreq_freq_attr_rw(UV_mV_table);
@@ -674,7 +680,9 @@ static struct attribute *default_attrs[] = {
 	&cpuinfo_max_freq.attr,
 	&cpuinfo_transition_latency.attr,
 	&scaling_min_freq.attr,
+	&scaling_min_suspend_freq.attr,
 	&scaling_max_freq.attr,
+	&scaling_max_suspend_freq.attr,
 	&affected_cpus.attr,
 	&related_cpus.attr,
 	&scaling_governor.attr,
@@ -1029,7 +1037,9 @@ static int cpufreq_add_dev(struct sys_device *sys_dev)
 		goto err_unlock_policy;
 	}
 	policy->user_policy.min = policy->min;
+	policy->user_policy.min_suspend = policy->min_suspend;
 	policy->user_policy.max = policy->max;
+	policy->user_policy.max_suspend = policy->max_suspend;
 
 	blocking_notifier_call_chain(&cpufreq_policy_notifier_list,
 				     CPUFREQ_START, policy);
@@ -1729,7 +1739,9 @@ static int __cpufreq_set_policy(struct cpufreq_policy *data,
 			CPUFREQ_NOTIFY, policy);
 
 	data->min = policy->min;
+	data->min_suspend = policy->min_suspend;
 	data->max = policy->max;
+	data->max_suspend = policy->max_suspend;
 
 	pr_debug("new min and max freqs are %u - %u kHz\n",
 					data->min, data->max);
@@ -1799,7 +1811,9 @@ int cpufreq_update_policy(unsigned int cpu)
 	pr_debug("updating policy for CPU %u\n", cpu);
 	memcpy(&policy, data, sizeof(struct cpufreq_policy));
 	policy.min = data->user_policy.min;
+	policy.min_suspend = data->user_policy.min_suspend;
 	policy.max = data->user_policy.max;
+	policy.max_suspend = data->user_policy.max_suspend;
 	policy.policy = data->user_policy.policy;
 	policy.governor = data->user_policy.governor;
 
