@@ -1504,6 +1504,14 @@ config BT_BCM4334
 	default n
 	help
 	  Adds BCM4334 RFKILL driver for Broadcom BCM4334 chipset
+
+menu "CPUFreq overclock"
+config FREQ_OVERCLOCK
+	bool "Frequecy overclock"
+	default n
+	help
+	 This option makes to overclock frequecy.
+endmenu
 endif
 
  config TARGET_KOR_LGT_TCP
