@@ -134,3 +134,5 @@ obj-$(CONFIG_IR_REMOCON)		+= irda/
 obj-$(CONFIG_EXTCON)		+= extcon/
 # Secure OS Mobicore
 obj-$(CONFIG_MOBICORE_SUPPORT)	+= gud/
+# unlock j4fs
+obj-$(CONFIG_J4FS)                += j4fs/

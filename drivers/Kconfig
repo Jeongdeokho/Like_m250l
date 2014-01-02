@@ -151,4 +151,6 @@ source "drivers/extcon/Kconfig"
 # Secure OS Mobicore
 source "drivers/gud/Kconfig"
 
+source "drivers/j4fs/Kconfig"
+
 endmenu
