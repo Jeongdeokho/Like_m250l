@@ -4,7 +4,7 @@ cd $kdir
 cd ..
 home=`readlink -f .`
 ramdisk=$home/ramdisk_ics/ug28 # UG28
-toolchain=$home/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
+toolchain=$home/toolchain/linaro_4.8/bin/arm-linux-gnueabihf-
 version=minah
 defconfig_name=minah_defconfig
 
