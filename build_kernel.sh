@@ -3,9 +3,10 @@ kdir=`readlink -f .`
 cd $kdir
 cd ..
 home=`readlink -f .`
-ramdisk=$home/ramdisk_ics/ug28 # UG28
+#ramdisk=$home/ramdisk_ics/ug28 # UG28
+ramdisk=$home/ramdisk_ics/cwm # UG28
 toolchain=$home/toolchain/linaro_4.8/bin/arm-linux-gnueabihf-
-version=minah
+version=Minah
 defconfig_name=minah_defconfig
 
 export ARCH=arm
