@@ -1,1 +1,1 @@
-. build-kernel.sh
+. build_kernel.sh

@@ -1,0 +1,30 @@
+*.orig
+*~
+#
+# git files that we don't want to ignore even it they are dot-files
+#
+!.gitignore
+!.mailmap
+#
+# Top-level generic files
+#
+/tags
+/TAGS
+/linux
+/vmlinux
+/vmlinuz
+/System.map
+/Module.markers
+/Module.symvers
+#
+# Generated include files
+#
+include/config
+include/linux/version.h
+include/generated
+arch/*/include/generated
+# stgit generated dirs
+patches-*
+# user
+pack/*
+minah_defconfig
