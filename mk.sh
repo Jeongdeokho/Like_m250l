@@ -1,21 +1,20 @@
 #!/bin/bash
-kdir=`readlink -f .`
-cd $kdir
-cd ..
-home=`readlink -f .`
-#ramdisk=$home/ramdisk_ics/ug28 # UG28
-ramdisk=$home/ramdisk_ics/cwm # UG28
-toolchain=$home/toolchain/linaro_4.8/bin/arm-linux-gnueabihf-
+#kdir=`readlink -f .`
+username=atti
+home=/home/$username
+kdir=$home/like
+ramdisk=$home/ramdisk_ics/cwm # CWM5 ported by JijonHyuni
+toolchain=$home/toolchain/linaro_4.8/bin/arm-linux-gnueabihf- # linaro gcc 4.8.2
 version=Minah
 defconfig_name=minah_defconfig
-
 export ARCH=arm
 export USE_SEC_FIPS_MODE=true
 export CROSS_COMPILE=$toolchain
 cd $kdir
+rm -rf pack out
+unzip pack.zip
 mkdir out
-rm -rf out/*
-rm -rf ./pack/stock/boot/zImage
+rm ./pack/stock/boot/zImage
 mv .git git
 make $defconfig_name
 make mrproper
@@ -27,7 +26,7 @@ make clean
 make -j16 CONFIG_INITRAMFS_SOURCE="$ramdisk"
 cp ./arch/arm/boot/zImage ./pack/stock/boot/
 cd $kdir/pack/stock
-zip -r [$version].$(date -u +%m)-$(date -u +%d)-$(date -u +%s).zip ./
+zip -r $version.$(date -u +%m)-$(date -u +%d)-$(date -u +%s).zip ./
 mv ./*.zip $kdir/out/
 cd $kdir
 make mrproper

@@ -1,3 +1,2 @@
-rm -rf ./out/*
-rm -rf ./pack
-touch ./out/empty
+rm -rf out pack
+
