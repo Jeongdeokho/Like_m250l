@@ -369,6 +369,9 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Werror-implicit-function-declaration \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
+                   -march=armv7-a \
+                   -ffast-math -fsingle-precision-constant \
+                   -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr
                    -fno-schedule-insns2 \
 		   -pipe \
 		   -ffast-math \
@@ -567,7 +570,7 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
 else
-KBUILD_CFLAGS	+= -O3 $(call cc-disable-warning,maybe-uninitialized,) -fno-inline-functions
+KBUILD_CFLAGS	+= -O3 $(call cc-disable-warning,maybe-uninitialized,) -fno-inline-functions -fmodulo-sched -fmodulo-sched-allow-regmoves
 endif
 
 ifdef CONFIG_CC_CHECK_WARNING_STRICTLY
